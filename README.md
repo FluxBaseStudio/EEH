@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EEH Automated Quote Page
 
-## Getting Started
+## Pliki
 
-First, run the development server:
+1. `app/quote/page.tsx`
+   - osobna podstrona formularza `/quote`
+   - multi-step formularz z paskiem postępu
+   - live estimate
+   - komunikat, że wycena czeka również na mailu
+
+2. `app/quote/quote.css`
+   - pełne style formularza i podstrony
+
+3. `app/api/quote/route.ts`
+   - endpoint wysyłający 3 maile:
+     - mail do właściciela
+     - podziękowanie do klienta
+     - mail z wyceną do klienta
+
+4. `navbar-button-example.txt`
+   - kod przycisku do górnego paska nawigacji
+
+5. `.env.example`
+   - zmienne środowiskowe SMTP
+
+## Instalacja
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install nodemailer
+npm install -D @types/nodemailer
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Struktura w projekcie
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```txt
+app/
+  quote/
+    page.tsx
+    quote.css
+  api/
+    quote/
+      route.ts
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Przycisk w menu
 
-## Learn More
+W głównym Navbarze dodaj:
 
-To learn more about Next.js, take a look at the following resources:
+```tsx
+<Link href="/quote" className="navQuoteButton">
+  Free Quote
+</Link>
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+albo:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```tsx
+<Link href="/quote" className="navQuoteButton">
+  Darmowa wycena
+</Link>
+```

@@ -1,0 +1,688 @@
+* {
+  box-sizing: border-box;
+}
+
+.quote-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(34, 88, 255, 0.12), transparent 32rem),
+    linear-gradient(180deg, #f7f9fc 0%, #ffffff 52%, #eef3f8 100%);
+  color: #111827;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.quote-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem clamp(1rem, 4vw, 4.5rem);
+  background: rgba(255, 255, 255, 0.82);
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+  backdrop-filter: blur(18px);
+}
+
+.quote-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #111827;
+  text-decoration: none;
+}
+
+.quote-logo strong {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  color: #ffffff;
+  background: #111827;
+  border-radius: 1rem;
+  letter-spacing: -0.06em;
+}
+
+.quote-logo span {
+  max-width: 9rem;
+  color: #4b5563;
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.quote-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quote-nav-links a {
+  color: #374151;
+  text-decoration: none;
+  font-size: 0.94rem;
+  font-weight: 700;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  transition: 0.2s ease;
+}
+
+.quote-nav-links a:hover {
+  background: #eef2ff;
+  color: #111827;
+}
+
+.quote-nav-links .quote-nav-cta {
+  color: #ffffff;
+  background: #1457ff;
+  box-shadow: 0 14px 30px rgba(20, 87, 255, 0.26);
+}
+
+.quote-nav-links .quote-nav-cta:hover {
+  color: #ffffff;
+  background: #0f46d8;
+}
+
+.quote-hero {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 6rem) 1rem clamp(2rem, 5vw, 4rem);
+  text-align: center;
+}
+
+.quote-hero span {
+  display: inline-flex;
+  margin-bottom: 1rem;
+  padding: 0.55rem 0.9rem;
+  color: #1457ff;
+  background: #eaf0ff;
+  border: 1px solid rgba(20, 87, 255, 0.15);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.quote-hero h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  line-height: 0.94;
+  letter-spacing: -0.08em;
+}
+
+.quote-hero p {
+  max-width: 670px;
+  margin: 1.2rem auto 0;
+  color: #4b5563;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.75;
+}
+
+.quote-shell {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding-bottom: 5rem;
+}
+
+.quote-card {
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(17, 24, 39, 0.09);
+  border-radius: 2rem;
+  box-shadow: 0 34px 90px rgba(15, 23, 42, 0.12);
+}
+
+.quote-progress {
+  padding: 1.4rem clamp(1rem, 3vw, 2rem) 1.2rem;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+.quote-progress-line {
+  overflow: hidden;
+  height: 0.55rem;
+  background: #e5e7eb;
+  border-radius: 999px;
+}
+
+.quote-progress-line span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #1457ff, #54a3ff);
+  border-radius: inherit;
+  transition: width 0.3s ease;
+}
+
+.quote-steps {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.quote-steps button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 2.75rem;
+  color: #6b7280;
+  background: #f3f4f6;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.quote-steps button span {
+  display: grid;
+  place-items: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  background: #ffffff;
+  border-radius: 50%;
+  font-size: 0.75rem;
+}
+
+.quote-steps button.active {
+  color: #1457ff;
+  background: #eaf0ff;
+  border-color: rgba(20, 87, 255, 0.16);
+}
+
+.quote-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 350px;
+  gap: 0;
+}
+
+.quote-main {
+  min-height: 590px;
+  padding: clamp(1.2rem, 4vw, 3rem);
+  border-right: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+.quote-step h2 {
+  margin: 0;
+  font-size: clamp(1.7rem, 4vw, 3.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+}
+
+.quote-step p {
+  margin: 0.85rem 0 2rem;
+  color: #6b7280;
+  line-height: 1.7;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.field-grid label {
+  display: grid;
+  gap: 0.5rem;
+  color: #374151;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.field-grid input,
+.field-grid select,
+.field-grid textarea {
+  width: 100%;
+  min-height: 3.4rem;
+  color: #111827;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 1rem;
+  outline: none;
+  padding: 0.9rem 1rem;
+  font: inherit;
+  transition: 0.2s ease;
+}
+
+.field-grid textarea {
+  min-height: 9rem;
+  resize: vertical;
+  grid-column: 1 / -1;
+}
+
+.field-grid input:focus,
+.field-grid select:focus,
+.field-grid textarea:focus {
+  border-color: #1457ff;
+  box-shadow: 0 0 0 4px rgba(20, 87, 255, 0.12);
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.option-grid button {
+  min-height: 7rem;
+  text-align: left;
+  padding: 1.2rem;
+  color: #111827;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 1.25rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.option-grid button:hover {
+  transform: translateY(-2px);
+  border-color: #1457ff;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+.option-grid button.selected {
+  color: #ffffff;
+  background: #1457ff;
+  border-color: #1457ff;
+  box-shadow: 0 18px 40px rgba(20, 87, 255, 0.24);
+}
+
+.option-grid strong,
+.option-grid span {
+  display: block;
+}
+
+.option-grid strong {
+  font-size: 1.05rem;
+}
+
+.option-grid span {
+  margin-top: 0.55rem;
+  color: inherit;
+  opacity: 0.72;
+  font-weight: 700;
+}
+
+.quote-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.4rem;
+}
+
+.ghost-button,
+.next-button,
+.submit-quote {
+  min-height: 3.3rem;
+  padding: 0 1.35rem;
+  border-radius: 999px;
+  border: 0;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.ghost-button {
+  color: #111827;
+  background: #f3f4f6;
+}
+
+.next-button,
+.submit-quote {
+  color: #ffffff;
+  background: #1457ff;
+  box-shadow: 0 18px 38px rgba(20, 87, 255, 0.25);
+}
+
+.ghost-button:disabled,
+.next-button:disabled,
+.submit-quote:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.quote-summary {
+  display: grid;
+  align-content: start;
+  gap: 1.2rem;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.quote-summary > span {
+  color: #93c5fd;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.quote-summary > strong {
+  display: block;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.quote-summary div {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.2rem;
+}
+
+.quote-summary small {
+  display: block;
+  color: #93c5fd;
+  font-weight: 900;
+  margin-bottom: 0.35rem;
+}
+
+.quote-summary p {
+  margin: 0;
+  color: #e5e7eb;
+  line-height: 1.5;
+}
+
+.quote-summary .summary-mail {
+  color: #dbeafe;
+  background: rgba(20, 87, 255, 0.22);
+}
+
+.final-step h2 {
+  margin-top: 0.8rem;
+  color: #1457ff;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+}
+
+.final-badge {
+  display: inline-flex;
+  padding: 0.55rem 0.85rem;
+  color: #1457ff;
+  background: #eaf0ff;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.quote-breakdown {
+  display: grid;
+  gap: 0.8rem;
+  margin: 1.6rem 0;
+}
+
+.quote-breakdown div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+}
+
+.quote-breakdown span {
+  color: #6b7280;
+  font-weight: 800;
+}
+
+.quote-breakdown strong {
+  text-align: right;
+}
+
+.quote-breakdown .total-row {
+  color: #ffffff;
+  background: #111827;
+  border-color: #111827;
+}
+
+.quote-breakdown .total-row span {
+  color: #bfdbfe;
+}
+
+.quote-notice,
+.success-box,
+.error-text {
+  padding: 1rem;
+  border-radius: 1rem;
+  line-height: 1.6;
+  font-weight: 800;
+}
+
+.quote-notice {
+  color: #1d4ed8;
+  background: #dbeafe;
+}
+
+.success-box {
+  margin-top: 1rem;
+  color: #047857;
+  background: #d1fae5;
+}
+
+.error-text {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+
+
+
+
+.option-grid button.selected::after {
+  content: "✓";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  place-items: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 999px;
+  color: #1457ff;
+  background: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 950;
+}
+
+.option-grid button {
+  position: relative;
+}
+
+.size-option-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.size-option-grid button {
+  position: relative;
+  min-height: 18rem;
+  text-align: center;
+  padding: 1.4rem;
+  color: #111827;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1.25rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.05);
+}
+
+.size-option-grid button:hover {
+  transform: translateY(-2px);
+  border-color: #1457ff;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+.size-option-grid button.selected {
+  border: 2px solid #111827;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+}
+
+.size-option-grid button.selected .size-radio {
+  background: #1457ff;
+  border-color: #1457ff;
+  box-shadow: inset 0 0 0 7px #1457ff, inset 0 0 0 12px #ffffff;
+}
+
+.size-option-grid svg {
+  display: block;
+  margin: 1.4rem auto 1.6rem;
+  color: #1457ff;
+}
+
+.size-option-grid strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.size-option-grid em {
+  display: block;
+  min-height: 2.6rem;
+  color: #6b7280;
+  font-style: normal;
+  line-height: 1.35;
+  margin-bottom: 1rem;
+}
+
+.size-radio {
+  position: absolute;
+  top: 1.05rem;
+  left: 1.05rem;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 999px;
+  border: 2px solid #d1d5db;
+  background: #ffffff;
+}
+
+.size-details {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.size-details p {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  color: #111827;
+  font-size: 0.9rem;
+  font-weight: 850;
+}
+
+.quote-selected-data {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 1.2rem 0;
+}
+
+.quote-selected-data div {
+  padding: 1rem;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+}
+
+.quote-selected-data span {
+  display: block;
+  color: #6b7280;
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+}
+
+.quote-selected-data strong {
+  color: #111827;
+}
+
+@media (max-width: 920px) {
+  .quote-nav {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .quote-nav-links {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.2rem;
+  }
+
+  .quote-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-main {
+    border-right: 0;
+    border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+  }
+
+  
+
+.option-grid button.selected::after {
+  content: "✓";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  place-items: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 999px;
+  color: #1457ff;
+  background: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 950;
+}
+
+.option-grid button {
+  position: relative;
+}
+
+.size-option-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-selected-data {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-steps {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 0.2rem;
+  }
+
+  .quote-steps button {
+    min-width: max-content;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .field-grid,
+  .option-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-hero h1 {
+    letter-spacing: -0.06em;
+  }
+
+  .quote-breakdown div {
+    flex-direction: column;
+  }
+
+  .quote-breakdown strong {
+    text-align: left;
+  }
+}
