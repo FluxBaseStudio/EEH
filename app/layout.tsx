@@ -4,7 +4,7 @@ import "./globals.css";
 import CookieBanner from "./components/CookieBanner";
 
 const siteUrl = "https://www.eu-entryhub.com";
-const googleAnalyticsId = "G-3H05SES3EP";
+const googleAnalyticsId = "G-MNB3PYDCN1";
 
 export const viewport: Viewport = {
   width: "device-width",
