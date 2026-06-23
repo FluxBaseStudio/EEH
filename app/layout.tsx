@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import "./globals.css";
 import CookieBanner from "./components/CookieBanner";
 
-const siteUrl = "https://europeanentryhub.com";
+const siteUrl = "https://www.eu-entryhub.com";
+const googleAnalyticsId = "G-3H05SES3EP";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -78,7 +80,7 @@ const organizationSchema = {
   "@type": "Organization",
   name: "European Entry Hub",
   url: siteUrl,
-  email: "contact@europeanentryhub.com",
+  email: "office@eu-entryhub.com",
   areaServed: "Europe",
 };
 
@@ -87,12 +89,13 @@ const logisticsSchema = {
   "@type": "LocalBusiness",
   name: "European Entry Hub",
   url: siteUrl,
-  email: "contact@europeanentryhub.com",
+  email: "office@eu-entryhub.com",
   image: `${siteUrl}/images/eeh-hero-bg.png.png`,
   description:
     "Warehousing, fulfillment, pick and pack, shipping and returns handling in Central Poland for manufacturers selling across Europe.",
   address: {
     "@type": "PostalAddress",
+    addressLocality: "Łódź",
     addressRegion: "Łódź Region",
     addressCountry: "PL",
   },
@@ -124,6 +127,20 @@ export default function RootLayout({
       <body>
         {children}
         <CookieBanner />
+
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${googleAnalyticsId}');
+          `}
+        </Script>
 
         <script
           type="application/ld+json"
