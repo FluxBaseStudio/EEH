@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.eu-entryhub.com
+
+# Sitemaps
+Sitemap: https://www.eu-entryhub.com/sitemap.xml

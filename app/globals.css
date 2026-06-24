@@ -1,10 +1,10 @@
-/* EEH global foundation: performance, accessibility, SEO-friendly rendering */
+/* EEH global foundation */
 
 :root {
   color-scheme: light;
-  --background: #f4f7fa;
-  --foreground: #041426;
-  --selection-bg: #0c4f8f;
+  --background: #fbfdff;
+  --foreground: #06192d;
+  --selection-bg: #2563eb;
   --selection-text: #ffffff;
 }
 
@@ -81,7 +81,7 @@ textarea {
 }
 
 :focus-visible {
-  outline: 3px solid #9bd4ff;
+  outline: 3px solid #60a5fa;
   outline-offset: 3px;
 }
 
@@ -89,7 +89,38 @@ textarea {
   scroll-margin-top: 96px;
 }
 
-/* Better accessibility for users who prefer less motion */
+/* smooth gallery behavior */
+.eeh-gallery-track {
+  scrollbar-width: thin;
+  scrollbar-color: #2563eb #eaf3ff;
+}
+
+.eeh-gallery-track::-webkit-scrollbar {
+  height: 8px;
+}
+
+.eeh-gallery-track::-webkit-scrollbar-track {
+  background: #eaf3ff;
+  border-radius: 999px;
+}
+
+.eeh-gallery-track::-webkit-scrollbar-thumb {
+  background: #2563eb;
+  border-radius: 999px;
+}
+
+/* mobile safety */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  [id] {
+    scroll-margin-top: 82px;
+  }
+}
+
+/* reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -105,7 +136,7 @@ textarea {
   }
 }
 
-/* Print-friendly page, useful for business clients saving offer previews */
+/* print */
 @media print {
   body {
     background: #ffffff;
@@ -117,7 +148,8 @@ textarea {
   }
 
   .eeh-navbar,
-  .eeh-form button {
+  .eeh-form button,
+  .eeh-gallery-controls {
     display: none !important;
   }
 }

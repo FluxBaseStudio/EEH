@@ -86,7 +86,7 @@ const advantages = [
 ];
 
 const metrics = [
-  { value: "900 m²", label: "high-storage warehouse" },
+  { value: "9000 m²", label: "high-storage warehouse" },
   { value: "300 m²", label: "office and operations space" },
   { value: "2–3 days", label: "typical EU delivery time" },
 ];
@@ -115,6 +115,63 @@ const faqItems = [
       "The operational base is located in Central Poland, in the Łódź region, with strong access to European transport routes.",
   },
 ];
+const facilityImages = [
+  {
+    src: "/images/facility/building.png",
+    alt: "European Entry Hub building exterior with EEH branding",
+    label: "Operations office",
+  },
+  {
+    src: "/images/facility/office.png",
+    alt: "European Entry Hub office with blue branding",
+    label: "Central Poland facility",
+  },
+  {
+    src: "/images/facility/warehouse-main.png",
+    alt: "Main EEH warehouse space",
+    label: "Daily operations",
+  },
+  {
+    src: "/images/facility/warehouse-worker.png",
+    alt: "EEH warehouse worker with pallet jack",
+    label: "9000 m² warehouse",
+  },
+  {
+    src: "/images/facility/warehouse-racks.png",
+    alt: "EEH warehouse racks with inventory boxes",
+    label: "Storage racks",
+  },
+  {
+    src: "/images/facility/warehouse-storage.png",
+    alt: "EEH warehouse storage area with packages",
+    label: "Inventory storage",
+  },
+];
+
+const operationalParams = [
+  { value: "9000 m²", label: "Warehouse space" },
+  { value: "300 m²", label: "Office space" },
+  { value: "TBD", label: "Pallet places" },
+  { value: "TBD", label: "Max storage height" },
+  { value: "Mon-Fri", label: "Operating hours" },
+  { value: "DPD / DHL / GLS / InPost", label: "Carrier-ready model" },
+];
+
+const whyPolandItems = [
+  "Central European location close to major EU routes",
+  "Lower operating costs than Germany and Western Europe",
+  "Access to 450+ million consumers across the EU",
+  "Fast road connections to Germany, France, Benelux and CEE",
+  "Support for EU logistics, customs and VAT flow",
+];
+
+const comparisonItems = [
+  { title: "Focused partner", text: "EEH is built for manufacturers entering Europe, not for anonymous mass-volume accounts." },
+  { title: "Direct communication", text: "You work closer to the people responsible for your inventory, fulfillment and daily operations." },
+  { title: "Flexible start", text: "A practical setup for growing brands before they need a huge corporate logistics provider." },
+  { title: "Clear operating layer", text: "You keep product, brand, sales and marketing control. EEH handles storage, packing, shipping and returns." },
+];
+
 
 
 export default function HomePage() {
@@ -183,6 +240,8 @@ export default function HomePage() {
         <nav className="eeh-nav">
           <Link href="/">Home</Link>
           <Link href="#services">Services</Link>
+          <Link href="#facility">Facility</Link>
+          <Link href="#operations">Capacity</Link>
           <Link href="#why">Why EEH</Link>
           <Link href="#location">Location</Link>
           <Link href="#about">About Us</Link>
@@ -212,6 +271,8 @@ export default function HomePage() {
         >
           <Link href="/" onClick={closeMenu}>Home</Link>
           <Link href="#services" onClick={closeMenu}>Services</Link>
+          <Link href="#facility" onClick={closeMenu}>Facility</Link>
+          <Link href="#operations" onClick={closeMenu}>Capacity</Link>
           <Link href="#why" onClick={closeMenu}>Why EEH</Link>
           <Link href="#location" onClick={closeMenu}>Location</Link>
           <Link href="#about" onClick={closeMenu}>About Us</Link>
@@ -244,7 +305,7 @@ export default function HomePage() {
 
           <div className="eeh-hero-actions">
             <Link href="/quote" className="eeh-button eeh-button-primary">
-              Get Free Quote <ArrowRight size={18} />
+              Get Cost Estimate Now <ArrowRight size={18} />
             </Link>
             <Link href="#process" className="eeh-button eeh-button-secondary">
               Learn More
@@ -308,6 +369,51 @@ export default function HomePage() {
         ))}
       </section>
 
+
+      <section className="eeh-facility" id="facility">
+        <motion.div
+          className="eeh-section-head"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55 }}
+        >
+          <span className="eeh-kicker dark">REAL FACILITY</span>
+          <h2>Real warehouse. Real office. Real operational base.</h2>
+          <p>
+            For international manufacturers, trust starts with proof. This gallery shows the physical EEH infrastructure in Central Poland.
+          </p>
+        </motion.div>
+
+        <div className="eeh-gallery-shell">
+          <div className="eeh-gallery-track">
+            {[...facilityImages, ...facilityImages].map((image, index) => (
+              <figure className="eeh-gallery-card" key={`${image.src}-${index}`}>
+                <img src={image.src} alt={image.alt} />
+                <figcaption>{image.label}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="eeh-proof">
+        <div className="eeh-proof-copy">
+          <span className="eeh-kicker dark">TRUST FIRST</span>
+          <h2>Built on infrastructure, not just declarations.</h2>
+          <p>
+            EEH combines warehouse space, office support and a Central Poland location to create a practical EU entry point for manufacturers from China, Korea, Taiwan and other global markets.
+          </p>
+        </div>
+
+        <div className="eeh-proof-grid">
+          <div><strong>Warehouse photos</strong><span>Real storage space and racks</span></div>
+          <div><strong>Office support</strong><span>A visible operating team base</span></div>
+          <div><strong>Building exterior</strong><span>Clear business presence</span></div>
+          <div><strong>Process clarity</strong><span>Storage, fulfillment and returns</span></div>
+        </div>
+      </section>
 
       <section className="eeh-seo-text" aria-label="European fulfillment SEO summary">
         <h2>European fulfillment and logistics from Poland</h2>
@@ -392,6 +498,32 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="eeh-operations" id="operations">
+        <motion.div
+          className="eeh-section-head"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55 }}
+        >
+          <span className="eeh-kicker dark">OPERATIONAL PARAMETERS</span>
+          <h2>Numbers that help manufacturers decide faster.</h2>
+          <p>
+            This section turns EEH from a promise into a measurable logistics option. Replace TBD values when the final warehouse data is confirmed.
+          </p>
+        </motion.div>
+
+        <div className="eeh-operations-grid">
+          {operationalParams.map((item) => (
+            <article key={item.label}>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="eeh-why" id="why">
         <motion.h2
           variants={fadeUp}
@@ -468,6 +600,62 @@ export default function HomePage() {
         <div className="eeh-map-visual">
           <div className="eeh-map-card"></div>
         </div>
+      </section>
+
+      <section className="eeh-why-poland" id="why-poland">
+        <div className="eeh-why-poland-copy">
+          <span className="eeh-kicker dark">WHY POLAND</span>
+          <h2>Why Poland as your EU Distribution Hub?</h2>
+          <p>
+            Poland gives international manufacturers a strong balance of location, cost and speed for serving European customers.
+          </p>
+        </div>
+
+        <div className="eeh-why-poland-list">
+          {whyPolandItems.map((item) => (
+            <div key={item}>
+              <CheckCircle2 size={22} />
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="eeh-vs-large">
+        <motion.div
+          className="eeh-section-head"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55 }}
+        >
+          <span className="eeh-kicker dark">WHY EEH VS LARGE PROVIDERS</span>
+          <h2>A smaller, clearer and more direct logistics partner.</h2>
+          <p>
+            Large providers are powerful, but often built for bigger accounts and rigid processes. EEH is positioned as a practical entry hub for manufacturers starting or scaling EU operations.
+          </p>
+        </motion.div>
+
+        <div className="eeh-vs-grid">
+          {comparisonItems.map((item) => (
+            <article key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="eeh-estimate-band">
+        <span>FREE LOGISTICS ASSESSMENT</span>
+        <h2>Get Your EU Fulfillment Cost Estimate Instantly</h2>
+        <p>
+          Share your monthly order volume, product type, parcel size and target countries. EEH will generate a practical starting estimate for your European operations immediately.
+        </p>
+        <Link href="/quote" className="eeh-button eeh-button-primary">
+          Get Instant Estimate <ArrowRight size={18} />
+        </Link>
       </section>
 
       <section className="eeh-cta" id="about">
@@ -554,10 +742,10 @@ export default function HomePage() {
           transition={{ duration: 0.6 }}
         >
           <span className="eeh-small-label">CONTACT</span>
-          <h2>Start your European logistics base.</h2>
+          <h2>Get Your EU Fulfillment Cost Estimate Instantly</h2>
           <p>
             Tell us what you sell, where your customers are located and how much
-            inventory you want to store in Poland. We will prepare the next step.
+            inventory you want to store in Poland. You will receive an initial estimate immediately, and our team can follow up with the next step.
           </p>
 
           <div className="eeh-contact-points">
@@ -663,6 +851,8 @@ export default function HomePage() {
           <h3>Navigation</h3>
           <Link href="/">Home</Link>
           <Link href="#services">Services</Link>
+          <Link href="#facility">Facility</Link>
+          <Link href="#operations">Capacity</Link>
           <Link href="#why">Why EEH</Link>
           <Link href="#location">Location</Link>
           <Link href="#contact">Contact</Link>
@@ -2316,6 +2506,312 @@ export default function HomePage() {
           background: rgba(20, 87, 255, 0.10) !important;
           border: 1px solid rgba(20, 87, 255, 0.14) !important;
           width: fit-content !important;
+        }
+
+
+        .eeh-facility {
+          position: relative;
+          padding: 76px 0 82px;
+          overflow: hidden;
+          background: linear-gradient(180deg, #ffffff 0%, #f3f8ff 100%);
+          text-align: center;
+        }
+
+        .eeh-gallery-shell {
+          width: 100%;
+          overflow: hidden;
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+        }
+
+        .eeh-gallery-track {
+          display: flex;
+          gap: 22px;
+          width: max-content;
+          padding: 10px 0 22px;
+          animation: eehGalleryMove 34s linear infinite;
+        }
+
+        .eeh-gallery-shell:hover .eeh-gallery-track {
+          animation-play-state: paused;
+        }
+
+        .eeh-gallery-card {
+          position: relative;
+          width: min(440px, 82vw);
+          height: 292px;
+          margin: 0;
+          overflow: hidden;
+          border-radius: 26px;
+          background: #dce8f4;
+          box-shadow: 0 22px 60px rgba(8, 41, 74, 0.13);
+          border: 1px solid rgba(8, 41, 74, 0.08);
+        }
+
+        .eeh-gallery-card img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.45s ease;
+        }
+
+        .eeh-gallery-card:hover img {
+          transform: scale(1.045);
+        }
+
+        .eeh-gallery-card figcaption {
+          position: absolute;
+          left: 16px;
+          bottom: 16px;
+          padding: 9px 13px;
+          border-radius: 999px;
+          color: #ffffff;
+          background: rgba(6, 25, 45, 0.74);
+          backdrop-filter: blur(12px);
+          font-size: 12px;
+          font-weight: 950;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+        }
+
+        @keyframes eehGalleryMove {
+          from { transform: translateX(0); }
+          to { transform: translateX(calc(-50% - 11px)); }
+        }
+
+        .eeh-proof {
+          display: grid;
+          grid-template-columns: 0.95fr 1.05fr;
+          gap: 34px;
+          padding: 78px 72px;
+          background: #ffffff;
+          align-items: center;
+        }
+
+        .eeh-proof-copy h2,
+        .eeh-why-poland h2,
+        .eeh-estimate-band h2 {
+          margin: 0;
+          color: var(--navy);
+          font-size: clamp(38px, 4vw, 58px);
+          line-height: 0.98;
+          letter-spacing: -0.055em;
+          font-weight: 950;
+        }
+
+        .eeh-proof-copy p,
+        .eeh-why-poland-copy p,
+        .eeh-estimate-band p {
+          max-width: 560px;
+          margin: 22px 0 0;
+          color: #607286;
+          font-size: 18px;
+          line-height: 1.5;
+          font-weight: 750;
+        }
+
+        .eeh-proof-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+
+        .eeh-proof-grid div,
+        .eeh-operations-grid article,
+        .eeh-vs-grid article {
+          padding: 26px;
+          border-radius: 22px;
+          background: #ffffff;
+          border: 1px solid rgba(8, 41, 74, 0.08);
+          box-shadow: 0 18px 48px rgba(8, 41, 74, 0.07);
+        }
+
+        .eeh-proof-grid strong {
+          display: block;
+          color: var(--navy);
+          font-size: 20px;
+          font-weight: 950;
+        }
+
+        .eeh-proof-grid span {
+          display: block;
+          margin-top: 8px;
+          color: #607286;
+          font-size: 14px;
+          line-height: 1.4;
+          font-weight: 750;
+        }
+
+        .eeh-operations {
+          position: relative;
+          padding: 76px 72px 86px;
+          background: linear-gradient(180deg, #f8fbff 0%, #eef6ff 100%);
+          text-align: center;
+          overflow: hidden;
+        }
+
+        .eeh-operations-grid {
+          max-width: 1120px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 18px;
+          text-align: left;
+        }
+
+        .eeh-operations-grid strong {
+          display: block;
+          color: var(--blue);
+          font-size: 30px;
+          line-height: 1;
+          font-weight: 950;
+          letter-spacing: -0.04em;
+        }
+
+        .eeh-operations-grid span {
+          display: block;
+          margin-top: 10px;
+          color: var(--navy);
+          font-size: 14px;
+          font-weight: 900;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+        }
+
+        .eeh-why-poland {
+          display: grid;
+          grid-template-columns: 0.85fr 1.15fr;
+          gap: 42px;
+          padding: 84px 72px;
+          background: #ffffff;
+          align-items: center;
+        }
+
+        .eeh-why-poland-list {
+          display: grid;
+          gap: 14px;
+        }
+
+        .eeh-why-poland-list div {
+          display: flex;
+          gap: 14px;
+          align-items: flex-start;
+          padding: 20px 22px;
+          border-radius: 20px;
+          background: #f5f9ff;
+          border: 1px solid rgba(8, 41, 74, 0.08);
+          color: var(--navy);
+          font-size: 16px;
+          line-height: 1.35;
+          font-weight: 850;
+        }
+
+        .eeh-why-poland-list svg {
+          color: var(--blue);
+          flex: 0 0 auto;
+        }
+
+        .eeh-vs-large {
+          padding: 78px 72px 86px;
+          background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+          text-align: center;
+        }
+
+        .eeh-vs-grid {
+          max-width: 1120px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 18px;
+          text-align: left;
+        }
+
+        .eeh-vs-grid h3 {
+          margin: 0 0 12px;
+          color: var(--navy);
+          font-size: 21px;
+          line-height: 1.05;
+          font-weight: 950;
+          letter-spacing: -0.035em;
+        }
+
+        .eeh-vs-grid p {
+          margin: 0;
+          color: #607286;
+          font-size: 14px;
+          line-height: 1.45;
+          font-weight: 750;
+        }
+
+        .eeh-estimate-band {
+          margin: 0;
+          padding: 82px 72px;
+          color: #ffffff;
+          text-align: center;
+          background:
+            radial-gradient(circle at 18% 0%, rgba(96, 165, 250, 0.32), transparent 26%),
+            linear-gradient(135deg, #06192d, #0b3b70 58%, #1457ff);
+        }
+
+        .eeh-estimate-band span {
+          display: inline-flex;
+          margin-bottom: 18px;
+          padding: 8px 13px;
+          border-radius: 999px;
+          color: #dcebff;
+          background: rgba(255, 255, 255, 0.10);
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          font-size: 12px;
+          font-weight: 950;
+          letter-spacing: 0.16em;
+        }
+
+        .eeh-estimate-band h2 {
+          color: #ffffff;
+          max-width: 900px;
+          margin: 0 auto;
+        }
+
+        .eeh-estimate-band p {
+          color: rgba(255, 255, 255, 0.82);
+          max-width: 720px;
+          margin: 22px auto 0;
+        }
+
+        .eeh-estimate-band .eeh-button {
+          margin-top: 30px;
+        }
+
+        @media (max-width: 1000px) {
+          .eeh-proof,
+          .eeh-why-poland {
+            grid-template-columns: 1fr;
+            padding: 64px 24px;
+          }
+
+          .eeh-operations,
+          .eeh-vs-large,
+          .eeh-estimate-band {
+            padding-left: 24px;
+            padding-right: 24px;
+          }
+
+          .eeh-operations-grid,
+          .eeh-vs-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 640px) {
+          .eeh-gallery-card {
+            height: 230px;
+          }
+
+          .eeh-proof-grid,
+          .eeh-operations-grid,
+          .eeh-vs-grid {
+            grid-template-columns: 1fr;
+          }
         }
 
       `}</style>
