@@ -150,11 +150,18 @@ const facilityImages = [
 
 const operationalParams = [
   { value: "9000 m²", label: "Warehouse space" },
-  { value: "300 m²", label: "Office space" },
-  { value: "TBD", label: "Pallet places" },
-  { value: "TBD", label: "Max storage height" },
-  { value: "Mon-Fri", label: "Operating hours" },
-  { value: "DPD / DHL / GLS / InPost", label: "Carrier-ready model" },
+  { value: "300 m²", label: "Office and operations space" },
+  { value: "2–3 days", label: "Typical EU delivery time" },
+  { value: "Łódź Region", label: "Central Poland location" },
+  { value: "Mon–Fri", label: "Standard operating week" },
+  { value: "EU-wide", label: "Fulfillment and returns handling" },
+];
+
+const carrierPartners = [
+  { name: "DPD", tone: "red", note: "Parcel delivery network" },
+  { name: "DHL", tone: "yellow", note: "International logistics" },
+  { name: "GLS", tone: "blue", note: "European parcel delivery" },
+  { name: "InPost", tone: "yellow", note: "Parcel lockers and courier" },
 ];
 
 const whyPolandItems = [
@@ -408,10 +415,25 @@ export default function HomePage() {
         </div>
 
         <div className="eeh-proof-grid">
-          <div><strong>Warehouse photos</strong><span>Real storage space and racks</span></div>
-          <div><strong>Office support</strong><span>A visible operating team base</span></div>
-          <div><strong>Building exterior</strong><span>Clear business presence</span></div>
-          <div><strong>Process clarity</strong><span>Storage, fulfillment and returns</span></div>
+          {[
+            ["Warehouse photos", "Real storage space and racks"],
+            ["Office support", "A visible operating team base"],
+            ["Building exterior", "Clear business presence"],
+            ["Process clarity", "Storage, fulfillment and returns"],
+          ].map(([title, text], index) => (
+            <motion.div
+              key={title}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.45, delay: index * 0.06 }}
+              whileHover={{ y: -6 }}
+            >
+              <strong>{title}</strong>
+              <span>{text}</span>
+            </motion.div>
+          ))}
         </div>
       </section>
 
@@ -508,18 +530,61 @@ export default function HomePage() {
           transition={{ duration: 0.55 }}
         >
           <span className="eeh-kicker dark">OPERATIONAL PARAMETERS</span>
-          <h2>Numbers that help manufacturers decide faster.</h2>
+          <h2>Confirmed operating details, presented clearly.</h2>
           <p>
-            This section turns EEH from a promise into a measurable logistics option. Replace TBD values when the final warehouse data is confirmed.
+            One consistent operational story: 9000 m² of warehouse space, 300 m² of office and operations support, Central Poland location and EU-wide fulfillment readiness.
           </p>
         </motion.div>
 
         <div className="eeh-operations-grid">
-          {operationalParams.map((item) => (
-            <article key={item.label}>
+          {operationalParams.map((item, index) => (
+            <motion.article
+              key={item.label}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.45, delay: index * 0.05 }}
+              whileHover={{ y: -6 }}
+            >
               <strong>{item.value}</strong>
               <span>{item.label}</span>
-            </article>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      <section className="eeh-carriers" aria-label="Carrier partners">
+        <motion.div
+          className="eeh-section-head"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55 }}
+        >
+          <span className="eeh-kicker dark">CARRIER NETWORK</span>
+          <h2>Ready to ship with trusted European carriers.</h2>
+          <p>
+            EEH is positioned for parcel fulfillment across Europe with recognizable delivery options that customers already know.
+          </p>
+        </motion.div>
+
+        <div className="eeh-carrier-grid">
+          {carrierPartners.map((carrier, index) => (
+            <motion.article
+              className={`eeh-carrier-card ${carrier.tone}`}
+              key={carrier.name}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.45, delay: index * 0.06 }}
+              whileHover={{ y: -8, scale: 1.015 }}
+            >
+              <strong>{carrier.name}</strong>
+              <span>{carrier.note}</span>
+            </motion.article>
           ))}
         </div>
       </section>
@@ -612,11 +677,19 @@ export default function HomePage() {
         </div>
 
         <div className="eeh-why-poland-list">
-          {whyPolandItems.map((item) => (
-            <div key={item}>
+          {whyPolandItems.map((item, index) => (
+            <motion.div
+              key={item}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.42, delay: index * 0.05 }}
+              whileHover={{ x: 6 }}
+            >
               <CheckCircle2 size={22} />
               <span>{item}</span>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -638,11 +711,19 @@ export default function HomePage() {
         </motion.div>
 
         <div className="eeh-vs-grid">
-          {comparisonItems.map((item) => (
-            <article key={item.title}>
+          {comparisonItems.map((item, index) => (
+            <motion.article
+              key={item.title}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.45, delay: index * 0.06 }}
+              whileHover={{ y: -6 }}
+            >
               <h3>{item.title}</h3>
               <p>{item.text}</p>
-            </article>
+            </motion.article>
           ))}
         </div>
       </section>
@@ -2678,6 +2759,94 @@ export default function HomePage() {
           letter-spacing: 0.04em;
         }
 
+        .eeh-carriers {
+          position: relative;
+          padding: 76px 72px 84px;
+          background: #ffffff;
+          text-align: center;
+          overflow: hidden;
+        }
+
+        .eeh-carriers::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background:
+            radial-gradient(circle at 14% 18%, rgba(20, 87, 255, 0.08), transparent 25%),
+            radial-gradient(circle at 88% 82%, rgba(96, 165, 250, 0.10), transparent 28%);
+        }
+
+        .eeh-carriers > * {
+          position: relative;
+          z-index: 1;
+        }
+
+        .eeh-carrier-grid {
+          max-width: 1120px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 18px;
+        }
+
+        .eeh-carrier-card {
+          min-height: 155px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          padding: 24px 18px;
+          border-radius: 24px;
+          background: #f8fbff;
+          border: 1px solid rgba(8, 41, 74, 0.09);
+          box-shadow: 0 18px 48px rgba(8, 41, 74, 0.07);
+          transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+        }
+
+        .eeh-carrier-card:hover {
+          box-shadow: 0 28px 70px rgba(8, 41, 74, 0.13);
+          border-color: rgba(20, 87, 255, 0.18);
+        }
+
+        .eeh-carrier-card strong {
+          min-width: 118px;
+          min-height: 58px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px 18px;
+          border-radius: 16px;
+          color: #ffffff;
+          background: #06192d;
+          font-size: 30px;
+          line-height: 1;
+          font-weight: 950;
+          letter-spacing: -0.04em;
+          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+        }
+
+        .eeh-carrier-card span {
+          color: #607286;
+          font-size: 13px;
+          line-height: 1.35;
+          font-weight: 800;
+        }
+
+        .eeh-carrier-card.red strong {
+          background: linear-gradient(135deg, #d71920, #8f1016);
+        }
+
+        .eeh-carrier-card.yellow strong {
+          color: #101820;
+          background: linear-gradient(135deg, #ffcc00, #ffdf52);
+        }
+
+        .eeh-carrier-card.blue strong {
+          background: linear-gradient(135deg, #08294a, #1457ff);
+        }
+
         .eeh-why-poland {
           display: grid;
           grid-template-columns: 0.85fr 1.15fr;
@@ -2790,6 +2959,7 @@ export default function HomePage() {
           }
 
           .eeh-operations,
+          .eeh-carriers,
           .eeh-vs-large,
           .eeh-estimate-band {
             padding-left: 24px;
@@ -2797,6 +2967,7 @@ export default function HomePage() {
           }
 
           .eeh-operations-grid,
+          .eeh-carrier-grid,
           .eeh-vs-grid {
             grid-template-columns: repeat(2, 1fr);
           }
@@ -2809,6 +2980,7 @@ export default function HomePage() {
 
           .eeh-proof-grid,
           .eeh-operations-grid,
+          .eeh-carrier-grid,
           .eeh-vs-grid {
             grid-template-columns: 1fr;
           }
