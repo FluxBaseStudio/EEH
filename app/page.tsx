@@ -88,7 +88,7 @@ const advantages = [
 const metrics = [
   { value: "9000 m²", label: "high-storage warehouse" },
   { value: "300 m²", label: "office and operations space" },
-  { value: "2–3 days", label: "typical EU delivery time" },
+  { value: "2,000", label: "parcels per day capacity" },
 ];
 
 const trustPoints = [
@@ -151,9 +151,9 @@ const facilityImages = [
 const operationalParams = [
   { value: "9000 m²", label: "Warehouse space" },
   { value: "300 m²", label: "Office and operations space" },
-  { value: "2–3 days", label: "Typical EU delivery time" },
-  { value: "Łódź Region", label: "Central Poland location" },
-  { value: "Mon–Fri", label: "Standard operating week" },
+  { value: "2,000", label: "Parcels per day from one hub" },
+  { value: "24/7", label: "Warehouse operations" },
+  { value: "BaseLinker", label: "Warehouse management system" },
   { value: "EU-wide", label: "Fulfillment and returns handling" },
 ];
 
@@ -177,6 +177,42 @@ const comparisonItems = [
   { title: "Direct communication", text: "You work closer to the people responsible for your inventory, fulfillment and daily operations." },
   { title: "Flexible start", text: "A practical setup for growing brands before they need a huge corporate logistics provider." },
   { title: "Clear operating layer", text: "You keep product, brand, sales and marketing control. EEH handles storage, packing, shipping and returns." },
+];
+
+const founderPoints = [
+  "Central European location",
+  "Dedicated fulfillment operations",
+  "Direct communication",
+  "Scalable warehouse infrastructure",
+];
+
+const inboundSteps = [
+  { title: "Shipment Notification", text: "SKU list, quantities, carton or pallet count, expected delivery date and transport documents are submitted before arrival." },
+  { title: "Delivery to EEH Warehouse", text: "The shipment arrives at the EEH facility and transport documentation is verified." },
+  { title: "Unloading & Inspection", text: "Goods are unloaded, packaging condition is checked and visible damage is documented." },
+  { title: "Quantity Verification", text: "Pallets, cartons and units are compared with the packing list, invoice and transport documents." },
+  { title: "Quality Control", text: "Products, labels and documentation are checked visually or according to the agreed inspection scope." },
+  { title: "WMS Registration", text: "Inventory is registered in BaseLinker, assigned SKU codes and connected with warehouse locations." },
+  { title: "Storage Allocation", text: "Goods are moved to high-storage racks, picking zones or special product areas." },
+  { title: "Available for Fulfillment", text: "Stock becomes visible and ready for order processing, pick and pack, dispatch and returns handling." },
+];
+
+const slaItems = [
+  { service: "Inbound Receiving", commitment: "Within 24h" },
+  { service: "WMS Registration", commitment: "Within 24h" },
+  { service: "Same-Day Shipping", commitment: "Orders placed before 12:00" },
+  { service: "Order Accuracy", commitment: "99.5%" },
+  { service: "Inventory Accuracy", commitment: "99.8%" },
+  { service: "Returns Registration", commitment: "Within 24h" },
+  { service: "Customer Support Response", commitment: "Within 8 business hours" },
+];
+
+const warehouseOperations = [
+  "Receiving",
+  "Storage",
+  "Pick & Pack",
+  "Dispatch Operations",
+  "Returns Processing",
 ];
 
 
@@ -244,47 +280,76 @@ export default function HomePage() {
           </span>
         </Link>
 
-        <nav className="eeh-nav">
-          <Link href="/">Home</Link>
+        <nav className="eeh-nav" aria-label="Main navigation">
           <Link href="#services">Services</Link>
           <Link href="#facility">Facility</Link>
           <Link href="#operations">Capacity</Link>
-          <Link href="#why">Why EEH</Link>
-          <Link href="#location">Location</Link>
-          <Link href="#about">About Us</Link>
           <Link href="#contact">Contact</Link>
-          <Link href="/quote">Free Quote</Link>
         </nav>
 
-        <Link href="/quote" className="eeh-nav-button">
-          Free Quote
-        </Link>
+        <div className="eeh-nav-actions">
+          <Link href="/quote" className="eeh-nav-button">
+            Free Quote
+          </Link>
 
-        <button
-          type="button"
-          className="eeh-menu-button"
-          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((current) => !current)}
-        >
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          <button
+            type="button"
+            className="eeh-menu-button"
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((current) => !current)}
+          >
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        <motion.div
+          className={menuOpen ? "eeh-menu-backdrop open" : "eeh-menu-backdrop"}
+          initial={false}
+          animate={menuOpen ? { opacity: 1, pointerEvents: "auto" } : { opacity: 0, pointerEvents: "none" }}
+          transition={{ duration: 0.22, ease: "easeOut" }}
+          onClick={closeMenu}
+        />
 
         <motion.nav
           className={menuOpen ? "eeh-mobile-menu open" : "eeh-mobile-menu"}
           initial={false}
-          animate={menuOpen ? { opacity: 1, y: 0, pointerEvents: "auto" } : { opacity: 0, y: -12, pointerEvents: "none" }}
-          transition={{ duration: 0.22, ease: "easeOut" }}
+          animate={menuOpen ? { opacity: 1, x: 0, pointerEvents: "auto" } : { opacity: 0, x: 28, pointerEvents: "none" }}
+          transition={{ duration: 0.26, ease: "easeOut" }}
+          aria-label="Expanded navigation"
         >
-          <Link href="/" onClick={closeMenu}>Home</Link>
-          <Link href="#services" onClick={closeMenu}>Services</Link>
-          <Link href="#facility" onClick={closeMenu}>Facility</Link>
-          <Link href="#operations" onClick={closeMenu}>Capacity</Link>
-          <Link href="#why" onClick={closeMenu}>Why EEH</Link>
-          <Link href="#location" onClick={closeMenu}>Location</Link>
-          <Link href="#about" onClick={closeMenu}>About Us</Link>
-          <Link href="#contact" onClick={closeMenu}>Contact</Link>
-          <Link href="/quote" onClick={closeMenu}>Free Quote</Link>
+          <div className="eeh-menu-panel-head">
+            <span>Navigation</span>
+            <button type="button" aria-label="Close navigation menu" onClick={closeMenu}>
+              <X size={22} />
+            </button>
+          </div>
+
+          <div className="eeh-menu-groups">
+            <div className="eeh-menu-group">
+              <strong>Main</strong>
+              <Link href="/" onClick={closeMenu}>Home</Link>
+              <Link href="#services" onClick={closeMenu}>Services</Link>
+              <Link href="#facility" onClick={closeMenu}>Facility</Link>
+              <Link href="#operations" onClick={closeMenu}>Capacity</Link>
+            </div>
+
+            <div className="eeh-menu-group">
+              <strong>Operations</strong>
+              <Link href="#inbound" onClick={closeMenu}>Inbound Process</Link>
+              <Link href="#sla" onClick={closeMenu}>SLA</Link>
+              <Link href="#why" onClick={closeMenu}>Why EEH</Link>
+              <Link href="#location" onClick={closeMenu}>Location</Link>
+            </div>
+
+            <div className="eeh-menu-group">
+              <strong>Company</strong>
+              <Link href="#founder" onClick={closeMenu}>Founder</Link>
+              <Link href="#about" onClick={closeMenu}>About Us</Link>
+              <Link href="#contact" onClick={closeMenu}>Contact</Link>
+              <Link href="/quote" onClick={closeMenu} className="eeh-menu-quote">Free Quote</Link>
+            </div>
+          </div>
         </motion.nav>
       </motion.header>
 
@@ -314,8 +379,8 @@ export default function HomePage() {
             <Link href="/quote" className="eeh-button eeh-button-primary">
               Get Cost Estimate Now <ArrowRight size={18} />
             </Link>
-            <Link href="#process" className="eeh-button eeh-button-secondary">
-              Learn More
+            <Link href="#inbound" className="eeh-button eeh-button-secondary">
+              Inbound Process
             </Link>
           </div>
 
@@ -329,8 +394,8 @@ export default function HomePage() {
               <span>local operational base</span>
             </div>
             <div>
-              <strong>PL</strong>
-              <span>central warehouse location</span>
+              <strong>2K</strong>
+              <span>parcels per day capacity</span>
             </div>
           </div>
         </motion.div>
@@ -483,6 +548,98 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="eeh-inbound" id="inbound">
+        <motion.div
+          className="eeh-section-head"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55 }}
+        >
+          <span className="eeh-kicker dark">INBOUND PROCESS</span>
+          <h2>Clear goods receiving procedure from truck arrival to available inventory.</h2>
+          <p>
+            A simple, professional process helps international manufacturers understand exactly what happens with their products after delivery to the EEH warehouse.
+          </p>
+        </motion.div>
+
+        <div className="eeh-inbound-grid">
+          {inboundSteps.map((step, index) => (
+            <motion.article
+              className="eeh-inbound-card"
+              key={step.title}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.28 }}
+              transition={{ duration: 0.42, delay: index * 0.04 }}
+              whileHover={{ y: -6 }}
+            >
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      <section className="eeh-sla" id="sla">
+        <motion.div
+          className="eeh-sla-copy"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55 }}
+        >
+          <span className="eeh-kicker">SERVICE LEVEL AGREEMENT</span>
+          <h2>24/7 warehouse operations with clear office hours and service guarantees.</h2>
+          <p>
+            Our warehouse operates around the clock to ensure uninterrupted receiving, storage and fulfillment services. Customer support and administration are available Monday to Friday, 08:00–16:00 CET.
+          </p>
+
+          <div className="eeh-sla-hours">
+            <div>
+              <strong>Warehouse Operations</strong>
+              <span>24 hours a day, 7 days a week</span>
+              <ul>
+                {warehouseOperations.map((item) => (
+                  <li key={item}><CheckCircle2 size={17} /> {item}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <strong>Customer Support & Administration</strong>
+              <span>Monday – Friday, 08:00 – 16:00 CET</span>
+              <ul>
+                <li><CheckCircle2 size={17} /> Customer Service</li>
+                <li><CheckCircle2 size={17} /> Account Management</li>
+                <li><CheckCircle2 size={17} /> Commercial Support</li>
+                <li><CheckCircle2 size={17} /> Billing & Administration</li>
+              </ul>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="eeh-sla-table"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55, delay: 0.08 }}
+        >
+          <h3>Service Guarantees</h3>
+          {slaItems.map((item) => (
+            <div key={item.service}>
+              <span>{item.service}</span>
+              <strong>{item.commitment}</strong>
+            </div>
+          ))}
+        </motion.div>
+      </section>
+
       <section className="eeh-services" id="services">
         <motion.div
           className="eeh-section-head"
@@ -532,7 +689,7 @@ export default function HomePage() {
           <span className="eeh-kicker dark">OPERATIONAL PARAMETERS</span>
           <h2>Confirmed operating details, presented clearly.</h2>
           <p>
-            One consistent operational story: 9000 m² of warehouse space, 300 m² of office and operations support, Central Poland location and EU-wide fulfillment readiness.
+            One consistent operational story: warehouse and office infrastructure, up to 2,000 parcels per day from one hub, BaseLinker WMS support and 24/7 warehouse operations.
           </p>
         </motion.div>
 
@@ -588,6 +745,61 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      <section className="eeh-founder" id="founder">
+        <motion.div
+          className="eeh-founder-photo"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55 }}
+        >
+          <div className="eeh-founder-image">
+            <img src="/images/founder/pawel-rutkowski.png" alt="Paweł Rutkowski, Founder and Managing Director of European Entry Hub" onError={(event) => { event.currentTarget.style.display = "none"; }} />
+            <div className="eeh-founder-placeholder">
+              <Building2 size={54} strokeWidth={1.5} />
+              <span>CEO PHOTO</span>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="eeh-founder-copy"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55, delay: 0.08 }}
+        >
+          <span className="eeh-kicker dark">MEET THE FOUNDER</span>
+          <h2>Paweł Rutkowski</h2>
+          <strong>Founder & Managing Director</strong>
+          <p>
+            European Entry Hub was created to help international manufacturers establish an efficient operational presence within the European Union without the need to invest in their own warehouse infrastructure.
+          </p>
+          <p>
+            Located in Central Poland, EEH provides warehousing, fulfillment, inventory management and logistics services designed specifically for companies entering the European market.
+          </p>
+          <p>
+            Our goal is simple: reduce delivery times, simplify operations and provide reliable local support for growing international brands.
+          </p>
+
+          <div className="eeh-founder-points">
+            {founderPoints.map((point) => (
+              <span key={point}>
+                <CheckCircle2 size={18} />
+                {point}
+              </span>
+            ))}
+          </div>
+
+          <Link href="#contact" className="eeh-button eeh-button-primary">
+            Contact Us <ArrowRight size={18} />
+          </Link>
+        </motion.div>
+      </section>
+
 
       <section className="eeh-why" id="why">
         <motion.h2
@@ -934,6 +1146,8 @@ export default function HomePage() {
           <Link href="#services">Services</Link>
           <Link href="#facility">Facility</Link>
           <Link href="#operations">Capacity</Link>
+          <Link href="#inbound">Inbound</Link>
+          <Link href="#sla">SLA</Link>
           <Link href="#why">Why EEH</Link>
           <Link href="#location">Location</Link>
           <Link href="#contact">Contact</Link>
@@ -2951,15 +3165,343 @@ export default function HomePage() {
           margin-top: 30px;
         }
 
+
+        .eeh-founder {
+          max-width: 1180px;
+          margin: 38px auto 28px;
+          display: grid;
+          grid-template-columns: 0.78fr 1.22fr;
+          gap: 30px;
+          align-items: center;
+          padding: 34px;
+          background: #ffffff;
+          border: 1px solid rgba(8, 41, 74, 0.08);
+          border-radius: 28px;
+          box-shadow: 0 18px 48px rgba(8, 41, 74, 0.07);
+        }
+
+        .eeh-founder-photo {
+          min-height: 360px;
+        }
+
+        .eeh-founder-image {
+          position: relative;
+          height: 360px;
+          overflow: hidden;
+          border-radius: 22px;
+          background: linear-gradient(135deg, #edf5ff, #f8fbff);
+          border: 1px solid rgba(8, 41, 74, 0.08);
+          box-shadow: 0 16px 38px rgba(8, 41, 74, 0.08);
+        }
+
+        .eeh-founder-image img {
+          position: relative;
+          z-index: 2;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .eeh-founder-placeholder {
+          position: absolute;
+          z-index: 1;
+          inset: 16px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          border: 1px dashed rgba(12, 79, 143, 0.22);
+          border-radius: 18px;
+          color: var(--blue);
+          background: rgba(255, 255, 255, 0.55);
+          font-size: 12px;
+          font-weight: 950;
+          letter-spacing: 0.14em;
+        }
+
+        .eeh-founder-copy .eeh-kicker {
+          margin-bottom: 12px;
+        }
+
+        .eeh-founder-copy h2 {
+          margin: 0;
+          color: var(--navy);
+          font-size: clamp(34px, 3.4vw, 48px);
+          line-height: 1;
+          letter-spacing: -0.045em;
+          font-weight: 950;
+        }
+
+        .eeh-founder-copy > strong {
+          display: block;
+          margin: 10px 0 18px;
+          color: var(--blue);
+          font-size: 16px;
+          font-weight: 950;
+        }
+
+        .eeh-founder-copy p {
+          max-width: 690px;
+          margin: 0 0 12px;
+          color: #607286;
+          font-size: 15px;
+          line-height: 1.55;
+          font-weight: 720;
+        }
+
+        .eeh-founder-points {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+          margin: 22px 0 24px;
+        }
+
+        .eeh-founder-points span {
+          display: inline-flex;
+          align-items: center;
+          gap: 9px;
+          padding: 11px 12px;
+          border-radius: 14px;
+          color: var(--navy);
+          background: #f7fbff;
+          border: 1px solid rgba(8, 41, 74, 0.07);
+          box-shadow: none;
+          font-size: 12px;
+          font-weight: 900;
+          text-transform: uppercase;
+        }
+
+        .eeh-founder-points svg {
+          color: var(--blue);
+          flex: 0 0 auto;
+        }
+
+        .eeh-founder .eeh-button {
+          min-width: 160px;
+          padding: 11px 18px;
+          font-size: 14px;
+        }
+
+        .eeh-inbound {
+          position: relative;
+          padding: 78px 72px 88px;
+          background: #ffffff;
+          text-align: center;
+          overflow: hidden;
+        }
+
+        .eeh-inbound::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background:
+            radial-gradient(circle at 12% 14%, rgba(20, 87, 255, 0.08), transparent 28%),
+            radial-gradient(circle at 86% 84%, rgba(96, 165, 250, 0.10), transparent 28%);
+        }
+
+        .eeh-inbound > * {
+          position: relative;
+          z-index: 1;
+        }
+
+        .eeh-inbound-grid {
+          max-width: 1180px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 16px;
+          text-align: left;
+        }
+
+        .eeh-inbound-card {
+          min-height: 230px;
+          padding: 24px;
+          border-radius: 22px;
+          background: #f8fbff;
+          border: 1px solid rgba(8, 41, 74, 0.08);
+          box-shadow: 0 18px 48px rgba(8, 41, 74, 0.07);
+          transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+        }
+
+        .eeh-inbound-card:hover {
+          box-shadow: 0 28px 70px rgba(8, 41, 74, 0.12);
+          border-color: rgba(20, 87, 255, 0.18);
+        }
+
+        .eeh-inbound-card span {
+          display: inline-flex;
+          margin-bottom: 18px;
+          color: var(--blue);
+          font-size: 13px;
+          font-weight: 950;
+          letter-spacing: 0.16em;
+        }
+
+        .eeh-inbound-card h3 {
+          margin: 0 0 12px;
+          color: var(--navy);
+          font-size: 21px;
+          line-height: 1.05;
+          font-weight: 950;
+          letter-spacing: -0.035em;
+        }
+
+        .eeh-inbound-card p {
+          margin: 0;
+          color: #607286;
+          font-size: 14px;
+          line-height: 1.45;
+          font-weight: 750;
+        }
+
+        .eeh-sla {
+          display: grid;
+          grid-template-columns: 1.05fr 0.95fr;
+          gap: 34px;
+          padding: 86px 72px;
+          color: #ffffff;
+          background:
+            radial-gradient(circle at 14% 0%, rgba(155, 212, 255, 0.20), transparent 28%),
+            linear-gradient(135deg, #041426, #082c51 58%, #061f3b);
+          align-items: start;
+        }
+
+        .eeh-sla-copy h2 {
+          max-width: 760px;
+          margin: 0;
+          color: #ffffff;
+          font-size: clamp(40px, 4vw, 62px);
+          line-height: 0.98;
+          letter-spacing: -0.055em;
+          font-weight: 950;
+        }
+
+        .eeh-sla-copy p {
+          max-width: 700px;
+          margin: 22px 0 0;
+          color: rgba(255, 255, 255, 0.78);
+          font-size: 18px;
+          line-height: 1.52;
+          font-weight: 700;
+        }
+
+        .eeh-sla-hours {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+          margin-top: 32px;
+        }
+
+        .eeh-sla-hours div,
+        .eeh-sla-table {
+          padding: 24px;
+          border-radius: 24px;
+          background: rgba(255, 255, 255, 0.09);
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          box-shadow: 0 24px 70px rgba(0, 0, 0, 0.16);
+          backdrop-filter: blur(14px);
+        }
+
+        .eeh-sla-hours strong,
+        .eeh-sla-table h3 {
+          display: block;
+          margin: 0 0 10px;
+          color: #ffffff;
+          font-size: 20px;
+          font-weight: 950;
+          letter-spacing: -0.035em;
+        }
+
+        .eeh-sla-hours span {
+          display: block;
+          color: #9bd4ff;
+          font-size: 14px;
+          line-height: 1.35;
+          font-weight: 900;
+        }
+
+        .eeh-sla-hours ul {
+          display: grid;
+          gap: 9px;
+          margin: 18px 0 0;
+          padding: 0;
+          list-style: none;
+        }
+
+        .eeh-sla-hours li {
+          display: flex;
+          align-items: center;
+          gap: 9px;
+          color: rgba(255, 255, 255, 0.78);
+          font-size: 13px;
+          font-weight: 800;
+        }
+
+        .eeh-sla-hours svg {
+          color: #9bd4ff;
+          flex: 0 0 auto;
+        }
+
+        .eeh-sla-table h3 {
+          margin-bottom: 18px;
+          font-size: 28px;
+        }
+
+        .eeh-sla-table div {
+          display: flex;
+          justify-content: space-between;
+          gap: 16px;
+          padding: 15px 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .eeh-sla-table div:last-child {
+          border-bottom: 0;
+        }
+
+        .eeh-sla-table span {
+          color: rgba(255, 255, 255, 0.72);
+          font-size: 14px;
+          font-weight: 800;
+        }
+
+        .eeh-sla-table strong {
+          color: #ffffff;
+          font-size: 14px;
+          font-weight: 950;
+          text-align: right;
+        }
+
         @media (max-width: 1000px) {
           .eeh-proof,
+          .eeh-sla,
           .eeh-why-poland {
             grid-template-columns: 1fr;
             padding: 64px 24px;
           }
 
+          .eeh-founder {
+            grid-template-columns: 1fr;
+            margin: 28px 24px;
+            padding: 28px;
+          }
+
+          .eeh-founder-photo,
+          .eeh-founder-image {
+            min-height: 360px;
+            height: 360px;
+          }
+
+          .eeh-sla-hours {
+            grid-template-columns: 1fr;
+          }
+
           .eeh-operations,
           .eeh-carriers,
+          .eeh-inbound,
           .eeh-vs-large,
           .eeh-estimate-band {
             padding-left: 24px;
@@ -2968,6 +3510,7 @@ export default function HomePage() {
 
           .eeh-operations-grid,
           .eeh-carrier-grid,
+          .eeh-inbound-grid,
           .eeh-vs-grid {
             grid-template-columns: repeat(2, 1fr);
           }
@@ -2978,11 +3521,219 @@ export default function HomePage() {
             height: 230px;
           }
 
+          .eeh-founder {
+            margin: 22px 16px;
+            padding: 20px;
+            border-radius: 22px;
+          }
+
+          .eeh-founder-photo,
+          .eeh-founder-image {
+            min-height: 300px;
+            height: 300px;
+          }
+
+          .eeh-sla-table div {
+            display: grid;
+            gap: 6px;
+          }
+
+          .eeh-sla-table strong {
+            text-align: left;
+          }
+
           .eeh-proof-grid,
+          .eeh-founder-points,
           .eeh-operations-grid,
           .eeh-carrier-grid,
+          .eeh-inbound-grid,
           .eeh-vs-grid {
             grid-template-columns: 1fr;
+          }
+        }
+
+
+        /* COMPACT DESKTOP NAVIGATION DRAWER */
+        .eeh-nav-actions {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          margin-left: auto;
+        }
+
+        .eeh-navbar .eeh-nav {
+          margin-left: auto;
+          margin-right: 18px;
+          gap: 30px;
+        }
+
+        .eeh-navbar .eeh-nav a:nth-child(n + 5) {
+          display: none;
+        }
+
+        .eeh-menu-button {
+          display: grid !important;
+          width: 48px;
+          height: 48px;
+          place-items: center;
+          border: 1px solid rgba(8, 41, 74, 0.14);
+          border-radius: 999px;
+          color: var(--navy);
+          background: rgba(255, 255, 255, 0.94);
+          box-shadow: 0 14px 34px rgba(8, 41, 74, 0.09);
+        }
+
+        .eeh-menu-button:hover {
+          background: #eef6ff;
+          border-color: rgba(37, 99, 235, 0.22);
+          transform: translateY(-2px);
+        }
+
+        .eeh-menu-backdrop {
+          position: fixed;
+          inset: 0;
+          z-index: 48;
+          display: block;
+          background: rgba(4, 20, 38, 0.28);
+          backdrop-filter: blur(4px);
+        }
+
+        .eeh-mobile-menu {
+          position: fixed;
+          top: 88px;
+          right: 22px;
+          z-index: 60;
+          display: block !important;
+          width: min(430px, calc(100vw - 32px));
+          max-height: calc(100vh - 110px);
+          overflow-y: auto;
+          padding: 18px;
+          border-radius: 28px;
+          color: var(--navy);
+          background: rgba(255, 255, 255, 0.96);
+          border: 1px solid rgba(8, 41, 74, 0.10);
+          box-shadow: 0 34px 100px rgba(4, 20, 38, 0.18);
+          backdrop-filter: blur(20px);
+        }
+
+        .eeh-menu-panel-head {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 14px;
+          padding: 8px 8px 16px;
+          margin-bottom: 8px;
+          border-bottom: 1px solid rgba(8, 41, 74, 0.08);
+        }
+
+        .eeh-menu-panel-head span {
+          color: var(--navy);
+          font-size: 13px;
+          line-height: 1;
+          font-weight: 950;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+        }
+
+        .eeh-menu-panel-head button {
+          width: 38px;
+          height: 38px;
+          display: grid;
+          place-items: center;
+          border: 1px solid rgba(8, 41, 74, 0.12);
+          border-radius: 999px;
+          color: var(--navy);
+          background: #f5f9ff;
+        }
+
+        .eeh-menu-groups {
+          display: grid;
+          gap: 12px;
+        }
+
+        .eeh-menu-group {
+          display: grid;
+          gap: 7px;
+          padding: 14px;
+          border-radius: 20px;
+          background: #f7fbff;
+          border: 1px solid rgba(8, 41, 74, 0.07);
+        }
+
+        .eeh-menu-group strong {
+          margin-bottom: 4px;
+          color: #2563eb;
+          font-size: 12px;
+          line-height: 1;
+          font-weight: 950;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+        }
+
+        .eeh-menu-group a {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          min-height: 42px;
+          padding: 10px 12px;
+          border-radius: 14px;
+          color: var(--navy);
+          font-size: 15px;
+          line-height: 1.1;
+          font-weight: 900;
+          transition: 0.2s ease;
+        }
+
+        .eeh-menu-group a::after {
+          content: "→";
+          opacity: 0.35;
+          transition: 0.2s ease;
+        }
+
+        .eeh-menu-group a:hover {
+          color: #ffffff;
+          background: var(--blue);
+          transform: translateX(3px);
+        }
+
+        .eeh-menu-group a:hover::after {
+          opacity: 1;
+        }
+
+        .eeh-menu-group .eeh-menu-quote {
+          color: #ffffff;
+          background: linear-gradient(135deg, #2563eb, #1d4ed8);
+          box-shadow: 0 16px 34px rgba(37, 99, 235, 0.24);
+        }
+
+        @media (max-width: 1180px) {
+          .eeh-navbar .eeh-nav {
+            display: none;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .eeh-navbar {
+            padding: 0 16px;
+          }
+
+          .eeh-logo-main {
+            font-size: 36px;
+          }
+
+          .eeh-logo-side {
+            font-size: 9px;
+          }
+
+          .eeh-nav-button {
+            display: none;
+          }
+
+          .eeh-mobile-menu {
+            top: 82px;
+            right: 12px;
+            width: calc(100vw - 24px);
+            border-radius: 24px;
           }
         }
 

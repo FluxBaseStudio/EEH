@@ -22,14 +22,20 @@ type FormState = {
 };
 
 type QuoteData = {
-  parcels: number;
+  parcelsMin: number;
+  parcelsMax: number;
   parcelPrice: number;
-  pallets: number;
+  palletsMin: number;
+  palletsMax: number;
   palletPrice: number;
-  fulfillmentTotal: number;
-  storageTotal: number;
-  returnsTotal: number;
-  total: number;
+  fulfillmentTotalMin: number;
+  fulfillmentTotalMax: number;
+  storageTotalMin: number;
+  storageTotalMax: number;
+  returnsTotalMin: number;
+  returnsTotalMax: number;
+  totalMin: number;
+  totalMax: number;
 };
 
 const initialState: FormState = {
@@ -49,19 +55,19 @@ const initialState: FormState = {
 };
 
 const orderOptions = [
-  { label: "0–100 parcels", value: "0-100", average: 50, price: 4.5 },
-  { label: "100–500 parcels", value: "100-500", average: 300, price: 3.5 },
-  { label: "500–1000 parcels", value: "500-1000", average: 750, price: 3.0 },
-  { label: "1000–3000 parcels", value: "1000-3000", average: 2000, price: 2.7 },
-  { label: "3000+ parcels", value: "3000+", average: 4000, price: 2.4 },
+  { label: "0–100 parcels", value: "0-100", min: 0, max: 100, price: 4.5 },
+  { label: "100–500 parcels", value: "100-500", min: 100, max: 500, price: 3.5 },
+  { label: "500–1000 parcels", value: "500-1000", min: 500, max: 1000, price: 3.0 },
+  { label: "1000–3000 parcels", value: "1000-3000", min: 1000, max: 3000, price: 2.7 },
+  { label: "3000+ parcels", value: "3000+", min: 3000, max: 5000, price: 2.4 },
 ];
 
 const palletOptions = [
-  { label: "1–5 pallets", value: "1-5", average: 3, price: 35 },
-  { label: "6–15 pallets", value: "6-15", average: 10, price: 30 },
-  { label: "16–30 pallets", value: "16-30", average: 23, price: 27 },
-  { label: "31–60 pallets", value: "31-60", average: 45, price: 24 },
-  { label: "60+ pallets", value: "60+", average: 80, price: 22 },
+  { label: "1–5 pallets", value: "1-5", min: 1, max: 5, price: 35 },
+  { label: "6–15 pallets", value: "6-15", min: 6, max: 15, price: 30 },
+  { label: "16–30 pallets", value: "16-30", min: 16, max: 30, price: 27 },
+  { label: "31–60 pallets", value: "31-60", min: 31, max: 60, price: 24 },
+  { label: "60+ pallets", value: "60+", min: 60, max: 100, price: 22 },
 ];
 
 const productCategoryOptions = [
@@ -122,26 +128,39 @@ export default function QuotePage() {
   const selectedPallets = palletOptions.find((item) => item.value === form.palletsStored);
 
   const quote: QuoteData = useMemo(() => {
-    const parcels = selectedOrders?.average ?? 0;
+    const parcelsMin = selectedOrders?.min ?? 0;
+    const parcelsMax = selectedOrders?.max ?? 0;
     const parcelPrice = selectedOrders?.price ?? 0;
-    const pallets = selectedPallets?.average ?? 0;
+    const palletsMin = selectedPallets?.min ?? 0;
+    const palletsMax = selectedPallets?.max ?? 0;
     const palletPrice = selectedPallets?.price ?? 0;
 
-    const fulfillmentTotal = parcels * parcelPrice;
-    const storageTotal = pallets * palletPrice;
-    const returnsTotal = form.services.includes("Returns Handling")
-      ? Math.round(parcels * 0.05 * 3)
+    const fulfillmentTotalMin = parcelsMin * parcelPrice;
+    const fulfillmentTotalMax = parcelsMax * parcelPrice;
+    const storageTotalMin = palletsMin * palletPrice;
+    const storageTotalMax = palletsMax * palletPrice;
+    const returnsTotalMin = form.services.includes("Returns Handling")
+      ? Math.round(parcelsMin * 0.05 * 3)
+      : 0;
+    const returnsTotalMax = form.services.includes("Returns Handling")
+      ? Math.round(parcelsMax * 0.05 * 3)
       : 0;
 
     return {
-      parcels,
+      parcelsMin,
+      parcelsMax,
       parcelPrice,
-      pallets,
+      palletsMin,
+      palletsMax,
       palletPrice,
-      fulfillmentTotal,
-      storageTotal,
-      returnsTotal,
-      total: fulfillmentTotal + storageTotal + returnsTotal,
+      fulfillmentTotalMin,
+      fulfillmentTotalMax,
+      storageTotalMin,
+      storageTotalMax,
+      returnsTotalMin,
+      returnsTotalMax,
+      totalMin: fulfillmentTotalMin + storageTotalMin + returnsTotalMin,
+      totalMax: fulfillmentTotalMax + storageTotalMax + returnsTotalMax,
     };
   }, [selectedOrders, selectedPallets, form.services]);
 
@@ -458,7 +477,7 @@ export default function QuotePage() {
               {step === 7 && (
                 <div className="quote-step final-step">
                   <span className="final-badge">Your estimate is ready</span>
-                  <h2>{eur(quote.total)} / month</h2>
+                  <h2>{eur(quote.totalMin)} – {eur(quote.totalMax)} / month</h2>
                   <p>
                     This estimate includes pallet storage, standard warehouse handling,
                     pick & pack operations, packaging preparation, inventory reporting
@@ -469,27 +488,27 @@ export default function QuotePage() {
                     <div>
                       <span>Storage</span>
                       <strong>
-                        {quote.pallets} pallets × {eur(quote.palletPrice)} = {eur(quote.storageTotal)}
+                        {quote.palletsMin}–{quote.palletsMax} pallets × {eur(quote.palletPrice)} = {eur(quote.storageTotalMin)} – {eur(quote.storageTotalMax)}
                       </strong>
                     </div>
 
                     <div>
                       <span>Fulfillment</span>
                       <strong>
-                        {quote.parcels} parcels × {eur(quote.parcelPrice)} = {eur(quote.fulfillmentTotal)}
+                        {quote.parcelsMin}–{quote.parcelsMax} parcels × {eur(quote.parcelPrice)} = {eur(quote.fulfillmentTotalMin)} – {eur(quote.fulfillmentTotalMax)}
                       </strong>
                     </div>
 
-                    {quote.returnsTotal > 0 && (
+                    {quote.returnsTotalMax > 0 && (
                       <div>
                         <span>Returns handling estimate</span>
-                        <strong>{eur(quote.returnsTotal)}</strong>
+                        <strong>{eur(quote.returnsTotalMin)} – {eur(quote.returnsTotalMax)}</strong>
                       </div>
                     )}
 
                     <div className="total-row">
                       <span>Total estimate</span>
-                      <strong>{eur(quote.total)} / month</strong>
+                      <strong>{eur(quote.totalMin)} – {eur(quote.totalMax)} / month</strong>
                     </div>
                   </div>
 
@@ -555,7 +574,7 @@ export default function QuotePage() {
 
             <aside className="quote-summary">
               <span>Live estimate</span>
-              <strong>{eur(quote.total)} / month</strong>
+              <strong>{eur(quote.totalMin)} – {eur(quote.totalMax)} / month</strong>
 
               <div>
                 <small>Monthly parcels</small>

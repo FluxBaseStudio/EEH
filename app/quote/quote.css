@@ -686,3 +686,19 @@
     text-align: left;
   }
 }
+
+/* Range estimate polish */
+.final-step h2,
+.quote-summary > strong {
+  overflow-wrap: anywhere;
+}
+
+.quote-breakdown strong {
+  line-height: 1.35;
+}
+
+@media (max-width: 640px) {
+  .final-step h2 {
+    font-size: clamp(2rem, 12vw, 3.1rem);
+  }
+}

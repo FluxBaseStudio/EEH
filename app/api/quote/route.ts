@@ -16,14 +16,20 @@ type QuotePayload = {
     message: string;
   };
   quote: {
-    parcels: number;
+    parcelsMin: number;
+    parcelsMax: number;
     parcelPrice: number;
-    pallets: number;
+    palletsMin: number;
+    palletsMax: number;
     palletPrice: number;
-    fulfillmentTotal: number;
-    storageTotal: number;
-    returnsTotal: number;
-    total: number;
+    fulfillmentTotalMin: number;
+    fulfillmentTotalMax: number;
+    storageTotalMin: number;
+    storageTotalMax: number;
+    returnsTotalMin: number;
+    returnsTotalMax: number;
+    totalMin: number;
+    totalMax: number;
   };
 };
 
@@ -33,6 +39,11 @@ function eur(value: number) {
     currency: "EUR",
     maximumFractionDigits: 0,
   }).format(value);
+}
+
+function eurRange(min: number, max: number) {
+  if (min === max) return eur(min);
+  return `${eur(min)} – ${eur(max)}`;
 }
 
 function emailShell(title: string, content: string) {
@@ -77,6 +88,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing email configuration" }, { status: 500 });
     }
 
+    const estimateRange = eurRange(quote.totalMin, quote.totalMax);
+
     const ownerHtml = emailShell(
       "New quote request",
       `
@@ -102,8 +115,8 @@ export async function POST(request: Request) {
       </table>
 
       <div style="margin-top:24px;padding:20px;border-radius:18px;background:#eef4ff;border:1px solid #dbeafe;">
-        <div style="font-size:13px;color:#1d4ed8;font-weight:800;text-transform:uppercase;letter-spacing:.08em;">Automatic estimate</div>
-        <div style="font-size:34px;font-weight:900;letter-spacing:-.04em;margin-top:6px;">${eur(quote.total)} / month</div>
+        <div style="font-size:13px;color:#1d4ed8;font-weight:800;text-transform:uppercase;letter-spacing:.08em;">Automatic estimate range</div>
+        <div style="font-size:34px;font-weight:900;letter-spacing:-.04em;margin-top:6px;">${estimateRange} / month</div>
       </div>
       `
     );
@@ -113,37 +126,37 @@ export async function POST(request: Request) {
       `
       <p style="font-size:16px;line-height:1.7;margin:0;">Thank you for your interest in European Entry Hub.</p>
       <p style="font-size:16px;line-height:1.7;">We have received your request and our team will review your business requirements shortly.</p>
-      <p style="font-size:16px;line-height:1.7;">Your preliminary quote is being sent in a separate email, so you can easily return to it later.</p>
+      <p style="font-size:16px;line-height:1.7;">Your preliminary quote range is being sent in a separate email, so you can easily return to it later.</p>
       `
     );
 
     const quoteHtml = emailShell(
       "Your preliminary fulfillment estimate",
       `
-      <p style="font-size:16px;line-height:1.7;margin:0 0 20px;">Below is your automatically generated monthly estimate.</p>
+      <p style="font-size:16px;line-height:1.7;margin:0 0 20px;">Below is your automatically generated monthly estimate range.</p>
 
       <div style="padding:22px;border-radius:20px;background:#0f172a;color:#ffffff;margin-bottom:22px;">
-        <div style="font-size:13px;color:#93c5fd;font-weight:800;text-transform:uppercase;letter-spacing:.08em;">Estimated monthly cost</div>
-        <div style="font-size:42px;font-weight:900;letter-spacing:-.05em;margin-top:8px;">${eur(quote.total)}</div>
+        <div style="font-size:13px;color:#93c5fd;font-weight:800;text-transform:uppercase;letter-spacing:.08em;">Estimated monthly cost range</div>
+        <div style="font-size:42px;font-weight:900;letter-spacing:-.05em;margin-top:8px;">${estimateRange}</div>
       </div>
 
       <table style="width:100%;border-collapse:collapse;font-size:14px;">
         <tr>
           <td style="padding:12px;border-bottom:1px solid #e5e7eb;color:#6b7280;">Storage</td>
-          <td style="padding:12px;border-bottom:1px solid #e5e7eb;font-weight:800;text-align:right;">${quote.pallets} pallets × ${eur(quote.palletPrice)} = ${eur(quote.storageTotal)}</td>
+          <td style="padding:12px;border-bottom:1px solid #e5e7eb;font-weight:800;text-align:right;">${quote.palletsMin}–${quote.palletsMax} pallets × ${eur(quote.palletPrice)} = ${eurRange(quote.storageTotalMin, quote.storageTotalMax)}</td>
         </tr>
         <tr>
           <td style="padding:12px;border-bottom:1px solid #e5e7eb;color:#6b7280;">Fulfillment</td>
-          <td style="padding:12px;border-bottom:1px solid #e5e7eb;font-weight:800;text-align:right;">${quote.parcels} parcels × ${eur(quote.parcelPrice)} = ${eur(quote.fulfillmentTotal)}</td>
+          <td style="padding:12px;border-bottom:1px solid #e5e7eb;font-weight:800;text-align:right;">${quote.parcelsMin}–${quote.parcelsMax} parcels × ${eur(quote.parcelPrice)} = ${eurRange(quote.fulfillmentTotalMin, quote.fulfillmentTotalMax)}</td>
         </tr>
         <tr>
           <td style="padding:12px;border-bottom:1px solid #e5e7eb;color:#6b7280;">Returns handling estimate</td>
-          <td style="padding:12px;border-bottom:1px solid #e5e7eb;font-weight:800;text-align:right;">${eur(quote.returnsTotal)}</td>
+          <td style="padding:12px;border-bottom:1px solid #e5e7eb;font-weight:800;text-align:right;">${eurRange(quote.returnsTotalMin, quote.returnsTotalMax)}</td>
         </tr>
       </table>
 
       <div style="margin-top:22px;padding:18px;border-radius:18px;background:#ecfdf5;color:#047857;font-weight:800;line-height:1.6;">
-        This estimate includes pallet storage, standard warehouse handling, pick & pack operations, packaging preparation, inventory reporting and selected operational services.
+        This is a preliminary range based on the lowest and highest volume inside the selected category. Final pricing depends on exact product dimensions, handling requirements and operational scope.
       </div>
 
       <div style="margin-top:14px;padding:18px;border-radius:18px;background:#eff6ff;color:#1d4ed8;font-weight:800;line-height:1.6;">
