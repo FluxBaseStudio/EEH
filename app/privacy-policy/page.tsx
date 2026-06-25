@@ -1,40 +1,78 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
 
 export default function Page() {
   return (
-    <main className="subpage">
-      <nav className="subnav">
-        <Link href="/" className="logo">
-          <strong>EEH</strong>
-          <span>
+    <main className="privacy-page">
+      <header className="eeh-navbar">
+        <Link href="/" className="eeh-logo" aria-label="European Entry Hub home">
+          <span className="eeh-logo-main">EEH</span>
+          <span className="eeh-logo-side">
             EUROPEAN
             <br />
             ENTRY HUB
           </span>
         </Link>
-        <Link href="/" className="back">
+
+        <nav className="eeh-nav" aria-label="Main navigation">
+          <Link href="/#services">Services</Link>
+          <Link href="/#facility">Facility</Link>
+          <Link href="/#operations">Capacity</Link>
+          <Link href="/#contact">Contact</Link>
+        </nav>
+
+        <Link href="/" className="eeh-nav-button">
           Back To Homepage
         </Link>
-      </nav>
-
-      <header className="hero">
-        <small>LEGAL</small>
-        <h1>Privacy Policy</h1>
-        <p>
-          Information about how European Entry Hub may collect, use, store and
-          protect information submitted through this website.
-        </p>
       </header>
 
-      <div className="content">
-        <div className="page-actions">
-          <Link href="/" className="button">
-            ← Back To Homepage
-          </Link>
+      <section className="privacy-hero">
+        <div className="privacy-grid" />
+
+        <div className="privacy-hero-content">
+          <span className="eeh-kicker">LEGAL NOTICE</span>
+          <h1>Privacy Policy</h1>
+          <p>
+            Information about how European Entry Hub may collect, use, store and
+            protect information submitted through this website.
+          </p>
+
+          <div className="privacy-hero-points">
+            <span>
+              <CheckCircle2 size={18} />
+              Responsible data use
+            </span>
+            <span>
+              <CheckCircle2 size={18} />
+              Secure communication
+            </span>
+            <span>
+              <CheckCircle2 size={18} />
+              Clear privacy rules
+            </span>
+          </div>
         </div>
 
+        <div className="privacy-hero-card" aria-hidden="true">
+          <ShieldCheck size={86} strokeWidth={1.35} />
+          <strong>PRIVACY</strong>
+          <span>European Entry Hub</span>
+        </div>
+      </section>
+
+      <section className="privacy-intro">
+        <span className="eeh-kicker dark">PRIVACY POLICY</span>
+        <h2>Your information. Handled clearly and responsibly.</h2>
+        <p>
+          This Privacy Policy explains what information may be collected, how it
+          may be used and how EEH protects communication submitted through the
+          website.
+        </p>
+      </section>
+
+      <div className="privacy-content">
         <div className="legal">
           <section>
             <h2>1. Introduction</h2>
@@ -197,43 +235,51 @@ export default function Page() {
             <h2>15. Contact</h2>
             <p>Questions regarding privacy matters may be directed to:</p>
             <p>
-              <a href="mailto:contact@europeanentryhub.com">
-                contact@europeanentryhub.com
+              <a href="mailto:office@eu-entryhub.com">
+                office@eu-entryhub.com
               </a>
             </p>
           </section>
         </div>
 
-        <section className="cta">
-          <h2>Your Privacy Matters.</h2>
-          <p>
-            European Entry Hub is committed to transparent, responsible and
-            secure handling of information provided through this website.
-          </p>
+        <section className="privacy-cta">
+          <div>
+            <span className="eeh-kicker">CONTACT</span>
+            <h2>Questions about privacy?</h2>
+            <p>
+              Contact European Entry Hub for privacy, business inquiry or data
+              protection questions.
+            </p>
+          </div>
 
-          <Link href="/" className="button">
-            Back To Homepage
-          </Link>
+          <a href="mailto:office@eu-entryhub.com" className="eeh-button eeh-button-primary">
+            office@eu-entryhub.com <ArrowRight size={18} />
+          </a>
         </section>
       </div>
 
       <style jsx global>{`
         :root {
           --navy: #061f3b;
-          --dark: #041426;
+          --navy-dark: #041426;
           --blue: #0c4f8f;
-          --muted: #607286;
-          --bg: #f4f7fa;
+          --ice: #eef7ff;
+          --white: #ffffff;
+          --muted: #5e7287;
         }
 
         * {
           box-sizing: border-box;
         }
 
+        html {
+          scroll-behavior: smooth;
+        }
+
         body {
           margin: 0;
-          background: var(--bg);
-          color: var(--dark);
+          background: #f4f7fa;
+          color: var(--navy-dark);
           font-family: Arial, Helvetica, sans-serif;
         }
 
@@ -242,115 +288,260 @@ export default function Page() {
           text-decoration: none;
         }
 
-        .subpage {
+        .privacy-page {
           min-height: 100vh;
+          overflow-x: hidden;
           background:
-            radial-gradient(circle at 10% 0%, rgba(12, 79, 143, 0.1), transparent 26%),
-            linear-gradient(180deg, #ffffff 0%, #f4f7fa 100%);
+            radial-gradient(circle at 12% 8%, rgba(12, 79, 143, 0.12), transparent 28%),
+            linear-gradient(180deg, #ffffff 0%, #f4f7fa 42%, #eef3f8 100%);
         }
 
-        .subnav {
-          min-height: 74px;
+        .eeh-navbar {
+          position: fixed;
+          inset: 0 0 auto;
+          height: 74px;
+          z-index: 50;
           display: flex;
           align-items: center;
           justify-content: space-between;
+          gap: 24px;
           padding: 0 34px;
-          background: #031121;
-          color: white;
+          color: #fff;
+          background: rgba(3, 17, 33, 0.94);
+          backdrop-filter: blur(16px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .logo {
+        .eeh-logo {
           display: inline-flex;
           align-items: center;
           gap: 10px;
-          font-weight: 950;
-        }
-
-        .logo strong {
-          font-size: 42px;
-          line-height: 0.8;
-          letter-spacing: -0.08em;
-        }
-
-        .logo span {
-          font-size: 10px;
-          line-height: 1.05;
+          color: #fff;
           letter-spacing: 0.04em;
         }
 
-        .back {
-          border: 2px solid rgba(255, 255, 255, 0.75);
-          padding: 10px 16px;
+        .eeh-logo-main {
+          font-size: 42px;
+          line-height: 0.8;
+          font-weight: 950;
+          letter-spacing: -0.08em;
+        }
+
+        .eeh-logo-side {
+          font-size: 10px;
+          line-height: 1.05;
+          font-weight: 900;
+        }
+
+        .eeh-nav {
+          display: flex;
+          align-items: center;
+          gap: 38px;
+          font-size: 13px;
+          font-weight: 850;
+        }
+
+        .eeh-nav a {
+          opacity: 0.92;
+          transition: 0.2s ease;
+        }
+
+        .eeh-nav a:hover {
+          opacity: 1;
+          color: #bfe5ff;
+          transform: translateY(-1px);
+        }
+
+        .eeh-nav-button {
+          border: 2px solid rgba(255, 255, 255, 0.8);
+          padding: 10px 18px;
           border-radius: 4px;
           font-size: 13px;
           font-weight: 950;
           transition: 0.2s ease;
+          white-space: nowrap;
         }
 
-        .back:hover {
-          background: white;
+        .eeh-nav-button:hover {
+          background: #fff;
           color: var(--navy);
-          transform: translateY(-2px);
         }
 
-        .hero {
-          padding: 86px 72px 54px;
-          color: white;
+        .privacy-hero {
+          position: relative;
+          min-height: 520px;
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+          align-items: center;
+          gap: 44px;
+          padding: 134px 58px 72px;
+          color: #fff;
           background:
-            linear-gradient(90deg, rgba(3, 20, 38, 0.94), rgba(3, 20, 38, 0.72)),
+            linear-gradient(90deg, rgba(3, 20, 38, 0.94) 0%, rgba(3, 20, 38, 0.78) 48%, rgba(3, 20, 38, 0.42) 100%),
             url("/images/eeh-hero-bg.png.png") center / cover no-repeat;
+          overflow: hidden;
         }
 
-        .hero small {
+        .privacy-grid {
+          position: absolute;
+          inset: 74px 0 0;
+          opacity: 0.24;
+          background-image:
+            linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+          background-size: 56px 56px;
+          mask-image: linear-gradient(90deg, #000, transparent 86%);
+        }
+
+        .privacy-hero-content {
+          position: relative;
+          z-index: 2;
+          max-width: 800px;
+        }
+
+        .eeh-kicker {
+          display: inline-flex;
+          margin-bottom: 20px;
           color: #9bd4ff;
           font-size: 13px;
           font-weight: 950;
           letter-spacing: 0.2em;
         }
 
-        h1 {
-          max-width: 980px;
-          margin: 18px 0 0;
-          font-size: clamp(44px, 5vw, 78px);
-          line-height: 0.98;
-          letter-spacing: -0.06em;
+        .eeh-kicker.dark {
+          color: var(--blue);
         }
 
-        .hero p {
-          max-width: 760px;
-          margin: 24px 0 0;
-          color: rgba(255, 255, 255, 0.82);
+        .privacy-hero h1 {
+          margin: 0;
+          font-size: clamp(48px, 7vw, 104px);
+          line-height: 0.9;
+          letter-spacing: -0.07em;
+          font-weight: 950;
+          text-shadow: 0 12px 34px rgba(0, 0, 0, 0.24);
+        }
+
+        .privacy-hero p {
+          max-width: 680px;
+          margin: 28px 0 0;
+          color: rgba(255, 255, 255, 0.9);
           font-size: 20px;
           line-height: 1.45;
-          font-weight: 700;
+          font-weight: 750;
         }
 
-        .content {
+        .privacy-hero-points {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          margin-top: 34px;
+        }
+
+        .privacy-hero-points span {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 14px;
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          background: rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(10px);
+          color: rgba(255, 255, 255, 0.86);
+          font-size: 13px;
+          font-weight: 850;
+        }
+
+        .privacy-hero-card {
+          position: relative;
+          z-index: 2;
+          min-height: 300px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 16px;
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          border-radius: 12px;
+          background:
+            linear-gradient(180deg, rgba(13, 45, 74, 0.92), rgba(4, 18, 32, 0.96)),
+            repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 70px);
+          box-shadow: 0 34px 90px rgba(0, 0, 0, 0.32);
+          text-align: center;
+        }
+
+        .privacy-hero-card svg {
+          color: #d9e9f7;
+        }
+
+        .privacy-hero-card strong {
+          font-size: 26px;
+          font-weight: 950;
+          letter-spacing: -0.04em;
+        }
+
+        .privacy-hero-card span {
+          color: rgba(255, 255, 255, 0.72);
+          font-size: 13px;
+          font-weight: 800;
+        }
+
+        .privacy-intro {
           max-width: 1120px;
           margin: 0 auto;
-          padding: 64px 28px 86px;
+          padding: 58px 28px 20px;
         }
 
-        .page-actions {
-          margin-bottom: 28px;
+        .privacy-intro h2 {
+          max-width: 760px;
+          margin: 0;
+          color: var(--navy);
+          font-size: clamp(34px, 4vw, 56px);
+          line-height: 0.98;
+          font-weight: 950;
+          letter-spacing: -0.055em;
+        }
+
+        .privacy-intro p {
+          max-width: 720px;
+          margin: 20px 0 0;
+          color: var(--muted);
+          font-size: 17px;
+          line-height: 1.55;
+          font-weight: 750;
+        }
+
+        .privacy-content {
+          max-width: 1120px;
+          margin: 0 auto;
+          padding: 32px 28px 86px;
         }
 
         .legal {
           display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 18px;
         }
 
         .legal section {
+          position: relative;
+          min-height: 100%;
           padding: 30px;
-          background: white;
-          border: 1px solid rgba(6, 31, 59, 0.08);
-          box-shadow: 0 18px 48px rgba(6, 31, 59, 0.06);
+          background: rgba(255, 255, 255, 0.96);
+          border: 1px solid rgba(7, 31, 59, 0.08);
+          box-shadow: 0 14px 34px rgba(8, 30, 55, 0.07);
+          transition: 0.22s ease;
+        }
+
+        .legal section:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 20px 44px rgba(8, 30, 55, 0.11);
         }
 
         .legal h2 {
-          margin: 0 0 12px;
+          margin: 0 0 14px;
           color: var(--navy);
-          font-size: 26px;
+          font-size: 25px;
+          line-height: 1.05;
+          font-weight: 950;
           letter-spacing: -0.035em;
         }
 
@@ -364,9 +555,9 @@ export default function Page() {
         .legal p,
         .legal li {
           color: var(--muted);
-          font-size: 16px;
+          font-size: 15px;
           line-height: 1.65;
-          font-weight: 650;
+          font-weight: 700;
         }
 
         .legal p {
@@ -389,61 +580,120 @@ export default function Page() {
           text-underline-offset: 4px;
         }
 
-        .cta {
+        .privacy-cta {
           margin-top: 28px;
-          padding: 34px;
-          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 26px;
+          padding: 36px;
+          color: #fff;
           background:
             linear-gradient(90deg, rgba(2, 15, 28, 0.95), rgba(2, 15, 28, 0.72)),
             url("/images/eeh-cta-bg.png.png") center / cover no-repeat;
         }
 
-        .cta h2 {
+        .privacy-cta h2 {
           margin: 0;
-          font-size: 34px;
-          letter-spacing: -0.045em;
+          font-size: clamp(30px, 4vw, 44px);
+          line-height: 1;
+          font-weight: 950;
+          letter-spacing: -0.05em;
         }
 
-        .cta p {
-          max-width: 680px;
+        .privacy-cta p {
+          max-width: 620px;
+          margin: 16px 0 0;
           color: rgba(255, 255, 255, 0.78);
+          font-size: 16px;
+          line-height: 1.5;
+          font-weight: 750;
         }
 
-        .button {
+        .eeh-button {
+          min-width: 190px;
           display: inline-flex;
           align-items: center;
-          gap: 8px;
-          margin-top: 14px;
-          padding: 13px 20px;
+          justify-content: center;
+          gap: 9px;
+          padding: 13px 22px;
+          border-radius: 4px;
+          font-size: 15px;
+          font-weight: 950;
+          transition: 0.22s ease;
+          white-space: nowrap;
+        }
+
+        .eeh-button-primary {
           background: #0c4f8f;
           border: 2px solid #8fc6ff;
-          color: white;
-          font-weight: 950;
-          border-radius: 4px;
-          transition: 0.2s ease;
+          color: #fff;
+          box-shadow: 0 16px 34px rgba(0, 70, 150, 0.28);
         }
 
-        .button:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 18px 38px rgba(12, 79, 143, 0.22);
+        .eeh-button:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 20px 44px rgba(0, 60, 120, 0.36);
         }
 
-        @media (max-width: 800px) {
-          .subnav {
-            padding: 16px 20px;
-            gap: 16px;
+        @media (max-width: 980px) {
+          .eeh-nav {
+            display: none;
           }
 
-          .hero {
-            padding: 58px 22px 42px;
+          .privacy-hero {
+            grid-template-columns: 1fr;
+            padding: 116px 24px 56px;
           }
 
-          .content {
-            padding: 42px 20px 70px;
+          .privacy-hero-card {
+            display: none;
           }
 
-          h1 {
-            font-size: 42px;
+          .legal {
+            grid-template-columns: 1fr;
+          }
+
+          .privacy-cta {
+            align-items: flex-start;
+            flex-direction: column;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .eeh-navbar {
+            height: auto;
+            min-height: 74px;
+            padding: 14px 18px;
+          }
+
+          .eeh-logo-main {
+            font-size: 36px;
+          }
+
+          .eeh-nav-button {
+            padding: 9px 12px;
+            font-size: 12px;
+          }
+
+          .privacy-hero h1 {
+            font-size: 52px;
+          }
+
+          .privacy-hero p {
+            font-size: 17px;
+          }
+
+          .privacy-hero-points {
+            flex-direction: column;
+          }
+
+          .privacy-intro {
+            padding: 44px 20px 10px;
+          }
+
+          .privacy-content {
+            padding: 28px 20px 70px;
           }
 
           .legal section {
