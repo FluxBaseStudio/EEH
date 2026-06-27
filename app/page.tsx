@@ -1162,7 +1162,21 @@ export default function HomePage() {
           <Link href="/gdpr">GDPR</Link>
         </div>
 
-        <div className="eeh-rights">© 2026 European Entry Hub. All rights reserved.</div>
+        <div className="eeh-rights">
+          <span>© 2026 European Entry Hub. All rights reserved.</span>
+
+          <a
+            className="eeh-powered"
+            href="https://fluxbase.pl"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Powered by FluxBase"
+          >
+            <span>Powered by</span>
+            <strong>FLUXBASE</strong>
+            <span className="eeh-powered-bolt">⚡</span>
+          </a>
+        </div>
       </footer>
 
       <style jsx global>{`
@@ -1876,10 +1890,53 @@ export default function HomePage() {
           left: 72px;
           right: 72px;
           bottom: 22px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 18px;
+          flex-wrap: wrap;
           padding-top: 20px;
           color: #73889a;
           font-size: 14px;
           border-top: 1px solid rgba(255,255,255,.08);
+        }
+
+        .eeh-powered {
+          display: inline-flex !important;
+          align-items: center;
+          gap: 9px;
+          margin: 0 !important;
+          color: #ffffff !important;
+          font-weight: 950 !important;
+          text-transform: uppercase;
+          letter-spacing: -0.04em;
+          transition: 0.22s ease;
+        }
+
+        .eeh-powered span:first-child {
+          color: #aebdd1;
+          font-size: 13px;
+          font-weight: 800;
+          text-transform: none;
+          letter-spacing: 0;
+        }
+
+        .eeh-powered strong {
+          color: #ffffff;
+          font-size: 22px;
+          line-height: 1;
+          font-weight: 950;
+        }
+
+        .eeh-powered-bolt {
+          color: #ff6b35;
+          font-size: 24px;
+          line-height: 1;
+          filter: drop-shadow(0 0 12px rgba(255, 107, 53, 0.45));
+        }
+
+        .eeh-powered:hover {
+          transform: translateY(-2px);
         }
 
 
@@ -2685,7 +2742,16 @@ export default function HomePage() {
           .eeh-faq { padding: 52px 20px; }
           .eeh-faq-card { min-height: auto; padding: 24px; }
 
-          .eeh-rights { left: 22px; right: 22px; }
+          .eeh-rights {
+            left: 22px;
+            right: 22px;
+            align-items: flex-start;
+            flex-direction: column;
+          }
+
+          .eeh-powered strong {
+            font-size: 20px;
+          }
         }
 
 
